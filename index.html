@@ -487,7 +487,11 @@
             const targetDate = scheduleData.dates.find(d => d.date === selectedDate);
             const availableEmployees = scheduleData.employees
                 .filter(emp => !targetDate?.assigned.includes(emp.name))
-                .sort((a, b) => a.totalShifts - b.totalShifts);
+                .map(emp => ({
+                    ...emp,
+                    sortKey: emp.totalShifts + Math.random() * 0.5
+                }))
+                .sort((a, b) => a.sortKey - b.sortKey);
 
             availableEmployees.forEach(emp => {
                 const option = document.createElement('option');
