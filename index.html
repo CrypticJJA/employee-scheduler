@@ -283,11 +283,14 @@
             );
 
             const shuffledEmployees = availableEmployees
-                .map(emp => ({ 
-                    ...emp,
-                    sortKey: emp.totalShifts + Math.random() * 0.5 
-                }))
-                .sort((a, b) => a.sortKey - b.sortKey);
+                .sort((a, b) => {
+            // Primary sort: shift count
+                    if (a.totalShifts !== b.totalShifts) {
+                        return a.totalShifts - b.totalShifts;
+                    }
+            // Secondary sort: random factor
+                    return Math.random() - 0.5;
+                });
             return shuffledEmployees.slice(0, requiredCount);
         }
 
