@@ -282,6 +282,15 @@
                 emp => !targetDate.assigned.includes(emp.name)
             );
 
+            const shuffledEmployees = availableEmployees
+                .map(emp => ({ 
+                    ...emp,
+                    sortKey: emp.totalShifts + Math.random() * 0.5 
+                }))
+                .sort((a, b) => a.sortKey - b.sortKey);
+            return shuffledEmployees.slice(0, requiredCount);
+        }
+
             const sortedEmployees = availableEmployees.sort((a, b) => {
                 if (a.totalShifts !== b.totalShifts) {
                     return a.totalShifts - b.totalShifts;
