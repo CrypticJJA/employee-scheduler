@@ -293,16 +293,6 @@
                 });
             return shuffledEmployees.slice(0, requiredCount);
         }
-
-            const sortedEmployees = availableEmployees.sort((a, b) => {
-                if (a.totalShifts !== b.totalShifts) {
-                    return a.totalShifts - b.totalShifts;
-                }
-                return a.name.localeCompare(b.name);
-            });
-
-            return sortedEmployees.slice(0, requiredCount);
-        }
         function saveToLocalStorage() {
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             }
