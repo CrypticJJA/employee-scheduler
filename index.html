@@ -255,6 +255,13 @@
         const getSuggestionsBtn = document.getElementById('getSuggestionsBtn');
 
         // Utility Functions
+        function shuffleArray(array) {for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+                                      return array;
+                                     }
+        
         function getDateStatus(date) {
             const assigned = date.assigned.length;
             const required = date.required;
@@ -284,9 +291,9 @@
             );
 
             // 1.Shuffle available employees
-            const shuffledEmployees = [...availableEmployees].sort(() => Math.random() - 0.5);
+            const shuffledEmployees = shuffleArray([...availableEmployees]);
             
-            // 2.Sort by total shifts (ascending) after shuffling
+            // 2.Sort by total shifts (ascending) after shuffling (Update - Use Fisher-Yates)
             const prioritized = shuffled.sort((a,b) => a.totalShifts - b.totalShifts);
             
             // Return the top N employees
