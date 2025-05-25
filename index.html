@@ -278,21 +278,21 @@
             const targetDate = scheduleData.dates.find(d => d.date === dateStr);
             if (!targetDate || requiredCount === 0) return [];
 
+            //Filter available employees
             const availableEmployees = scheduleData.employees.filter(
                 emp => !targetDate.assigned.includes(emp.name)
             );
 
-            const shuffledEmployees = availableEmployees
-                .sort((a, b) => {
-            // Primary sort: shift count
-                    if (a.totalShifts !== b.totalShifts) {
-                        return a.totalShifts - b.totalShifts;
-                    }
-            // Secondary sort: random factor
-                    return Math.random() - 0.5;
-                });
-            return shuffledEmployees.slice(0, requiredCount);
+            // 1.Shuffle available employees
+            const shuffledEmployees = [...availableEmployees].sort(() => Math.random() - 0.5);
+            
+            // 2.Sort by total shifts (ascending) after shuffling
+            const prioritized = shuffled.sort((a,b) => a.totalShifts - b.totalShifts);
+            
+            // Return the top N employees
+            return prioritized.slice(0,requiredCount);
         }
+        
         function saveToLocalStorage() {
             localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
             }
