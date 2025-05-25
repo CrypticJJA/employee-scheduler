@@ -294,7 +294,7 @@
             const shuffledEmployees = shuffleArray([...availableEmployees]);
             
             // 2.Sort by total shifts (ascending) after shuffling (Update - Use Fisher-Yates)
-            const prioritized = shuffled.sort((a,b) => a.totalShifts - b.totalShifts);
+            const prioritized = shuffledEmployees.sort((a,b) => a.totalShifts - b.totalShifts);
             
             // Return the top N employees
             return prioritized.slice(0,requiredCount);
